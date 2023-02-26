@@ -8,7 +8,7 @@ public class StackInt {
 
 	public void push(int num) {
 		list.add(num);
-		if (stackMax.isEmpty() || num > stackMax.getLast()) {
+		if (stackMax.isEmpty() || num >= stackMax.getLast()) {
 			stackMax.add(num);
 		}
 	}

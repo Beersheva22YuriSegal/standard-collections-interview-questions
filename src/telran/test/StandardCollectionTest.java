@@ -66,5 +66,29 @@ class StandardCollectionTest {
 		assertEquals(7, stack.pop());
 		assertEquals(6, stack.getMax());
 	}
+	
+	@Test
+	void maxNumberWithNegativeImageTest() {
+		int ar[] = {10000000, 3, -2, -200, 200, -3, 2};
+		int ar1[] = {1000000, -1000000000, 3, -4};
+		assertEquals(200, maxNumberWithNegativeImage(ar));
+		assertEquals(-1, maxNumberWithNegativeImage(ar1));
+	}
+	
+	int maxNumberWithNegativeImage(int array[]) {
+		//TODO
+		//return maximal positive number having it negative image or -1 if none such numbers
+		return -1;
+	}
+	
+	void treeIteratingTest() {
+		int array[] = {1, 11, 111, 32, 9, 1234, 99, 992};
+		createAndIterateTreeInOrder(array);
+	}
 
+	private void createAndIterateTreeInOrder(int[] array) {
+		// TODO 
+		//create tree, add in tree numbers from a given array
+		//and iterate in the order of array defined in 69
+	}
 }
