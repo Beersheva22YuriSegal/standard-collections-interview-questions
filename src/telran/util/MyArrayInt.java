@@ -14,6 +14,12 @@ public class MyArrayInt {
 	}
 
 	public void set(int index, int value) {
+		//sets a given value at a given index
+		//throws exception IndexOutOfBoundsException
+		
+		if (index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException();
+		}
 		if (array == null) {
 			array = new HashMap<>();
 		}
@@ -21,6 +27,8 @@ public class MyArrayInt {
 	}
 
 	public int get(int index) {
+		//returns a value at a given index
+		
 		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -32,6 +40,8 @@ public class MyArrayInt {
 	}
 
 	public void setAll(int value) {
+		//sets a given value for all array's element
+		
 		this.value = value;
 		array = null;
 	}

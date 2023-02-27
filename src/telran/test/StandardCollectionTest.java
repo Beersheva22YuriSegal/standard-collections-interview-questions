@@ -18,8 +18,7 @@ class StandardCollectionTest {
 	}
 
 	@Test
-	@Disabled
-	void SubListtest() {
+	void SubListTest() {
 		List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 70, -20));
 		list.add(5);
 		List<Integer> listSub = list.subList(6, 9);
@@ -75,20 +74,41 @@ class StandardCollectionTest {
 		assertEquals(-1, maxNumberWithNegativeImage(ar1));
 	}
 	
-	int maxNumberWithNegativeImage(int array[]) {
-		//TODO
+	int maxNumberWithNegativeImage(int[] array) {
 		//return maximal positive number having it negative image or -1 if none such numbers
-		return -1;
+		
+		HashSet<Integer> set = new HashSet<>();
+		int res = -1;
+		for(int num:array) {
+			set.add(num);
+			if(set.contains(-num) && Math.abs(num) > res) {
+				res = num;
+			}
+		}
+		return res;
 	}
-	
+	@Test
 	void treeIteratingTest() {
 		int array[] = {1, 11, 111, 32, 9, 1234, 99, 992};
 		createAndIterateTreeInOrder(array);
 	}
 
 	private void createAndIterateTreeInOrder(int[] array) {
-		// TODO 
 		//create tree, add in tree numbers from a given array
-		//and iterate in the order of array defined in 69
+		//and iterate in the order of array defined in 93
+		
+		TreeSet<Integer> tree = new TreeSet<>((m, n) -> Integer.compare(sumOfDigits(m), sumOfDigits(n)));
+		for (int num : array) {
+			tree.add(num);
+		}
+	}
+
+	private int sumOfDigits(int num) {
+		 int res = 0;
+		 while (num != 0) {
+			 res += num % 10;
+			 num /= 10;
+		 }
+		 return res;
 	}
 }
