@@ -3,7 +3,6 @@ package telran.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import telran.util.StackInt;
@@ -68,7 +67,7 @@ class StandardCollectionTest {
 	
 	@Test
 	void maxNumberWithNegativeImageTest() {
-		int ar[] = {10000000, 3, -2, -200, 200, -3, 2};
+		int ar[] = {10000000, 3, -2, 200, -200, -3, 2};
 		int ar1[] = {1000000, -1000000000, 3, -4};
 		assertEquals(200, maxNumberWithNegativeImage(ar));
 		assertEquals(-1, maxNumberWithNegativeImage(ar1));
@@ -80,20 +79,23 @@ class StandardCollectionTest {
 		HashSet<Integer> set = new HashSet<>();
 		int res = -1;
 		for(int num:array) {
-			set.add(num);
-			if(set.contains(-num) && Math.abs(num) > res) {
-				res = num;
+			if(set.contains(-num)) {
+				int absNum = Math.abs(num);
+				if(absNum > res) {
+					res = absNum;
+				}
 			}
+			set.add(num);
 		}
 		return res;
 	}
 	@Test
 	void treeIteratingTest() {
-		int array[] = {1, 11, 111, 32, 9, 1234, 99, 992};
+		Integer[] array = {1, 11, 111, 32, 9, 1234, 99, 992};
 		createAndIterateTreeInOrder(array);
 	}
 
-	private void createAndIterateTreeInOrder(int[] array) {
+	private void createAndIterateTreeInOrder(Integer[] array) {
 		//create tree, add in tree numbers from a given array
 		//and iterate in the order of array defined in 93
 		
@@ -101,14 +103,16 @@ class StandardCollectionTest {
 		for (int num : array) {
 			tree.add(num);
 		}
+		assertArrayEquals(array, tree.toArray(new Integer[0]));
 	}
 
-	private int sumOfDigits(int num) {
-		 int res = 0;
-		 while (num != 0) {
-			 res += num % 10;
-			 num /= 10;
-		 }
-		 return res;
+	private int sumOfDigits(Integer num) {
+//		 Integer res = 0;
+//		 while (num != 0) {
+//			 res += num % 10;
+//			 num /= 10;
+//		 }
+//		 return res;
+		 return num.toString().chars().map(c -> c -'0').sum();
 	}
 }

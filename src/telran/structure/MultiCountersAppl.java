@@ -1,54 +1,68 @@
 package telran.structure;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 public class MultiCountersAppl implements MultiCounters {
-	
-	private TreeMap<Integer, HashSet<Object>> treeMap = new TreeMap<>();
-	private HashMap<Object, Integer> hashMap = new HashMap<>();
-	
+	private HashMap<Object, Integer> items = new HashMap<>();
+	private TreeMap<Integer, HashSet<Object>> counters = new TreeMap<>();
 
 	@Override
 	public Integer addItem(Object item) {
-		Integer res = hashMap.get(item);
-		if (res == null) {
-			res = 1;
-		} else {
-			res++;
+		Integer count = items.getOrDefault(item, 0);
+		moveItemCounters(count, item);
+		items.put(item, ++count);
+		return count;
+	}
+
+	private void moveItemCounters(Integer count, Object item) {
+		if (count != 0) {
+			removeCountersItem(count, item);
 		}
-		hashMap.put(item, res);
-		
-		if (!treeMap.containsKey(res)) {
-			treeMap.put(res, new HashSet<>());
+
+		addCountersItem(count + 1, item);
+
+	}
+
+	private void addCountersItem(int counter, Object item) {
+		HashSet<Object> set = counters.get(counter);
+		if (set == null) {
+			set = new HashSet<>();
+			counters.put(counter, set);
 		}
-		treeMap.get(res).add(item);
-		
-		return res;
+		set.add(item);
+
 	}
 
 	@Override
 	public Integer getValue(Object item) {
 
-		return hashMap.get(item);
+		return items.get(item);
 	}
 
 	@Override
 	public boolean remove(Object item) {
-		Integer counter = hashMap.get(item);
-		if (hashMap.containsKey(item)) {
-			treeMap.get(counter).remove(item);
+		boolean res = false;
+		Integer count = items.remove(item);
+		if (count != null) {
+			res = true;
+			removeCountersItem(count, item);
 		}
-		hashMap.remove(item);
-		return counter != null;
+		return res;
+	}
+
+	private void removeCountersItem(Integer count, Object item) {
+		HashSet<Object> set = counters.get(count);
+		set.remove(item);
+		if (set.isEmpty()) {
+			counters.remove(count);
+		}
+
 	}
 
 	@Override
 	public Set<Object> getMaxItems() {
-
-		return treeMap.lastEntry().getValue();
+		var lastEntry = counters.lastEntry();
+		return lastEntry != null ? lastEntry.getValue() : Collections.emptySet();
 	}
 
 }
