@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import telran.structure.MultiCounters;
-import telran.structure.MultiCountersAppl;
+import telran.structure.MultiCountersImpl;
 
 class MultiCountersTest {
 
@@ -17,7 +17,7 @@ class MultiCountersTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		multiCounters = new MultiCountersAppl();
+		multiCounters = new MultiCountersImpl();
 		multiCounters.addItem(10);
 		multiCounters.addItem(10);
 		multiCounters.addItem(10);

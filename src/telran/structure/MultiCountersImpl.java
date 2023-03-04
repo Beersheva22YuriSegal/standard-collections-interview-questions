@@ -2,7 +2,7 @@ package telran.structure;
 
 import java.util.*;
 
-public class MultiCountersAppl implements MultiCounters {
+public class MultiCountersImpl implements MultiCounters {
 	private HashMap<Object, Integer> items = new HashMap<>();
 	private TreeMap<Integer, HashSet<Object>> counters = new TreeMap<>();
 
